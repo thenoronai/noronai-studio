@@ -1,6 +1,6 @@
 ---
 name: whatif-studyo
-description: Hafızalı "What If" video stüdyosu. Bir konudan ya da belgeden yuvarlak kafalı çöp adam karakterli, tek anlatıcılı bir What If videosu üretir (senaryo, seslendirme, Three.js + Remotion, kalite kontrol, 4K render) ve her bölümde kanalın kurallarını, kullanılan konuları, karakterleri ve dersleri AvenoxBeyin kasasındaki Stüdyo defterine yazar. Tetik - "what if videosu", "yeni bölüm", "konu üret", "shorts yap", "stüdyoyu kur", "kadro", "çeşitlilik kontrolü", "kanal defteri". Kullanma - tek not kaydetmek veya kasada aramak (beyin), kurulum sorunu (beyin-doktor), What If dışı genel video (video-motoru).
+description: Hafızalı "What If" video stüdyosu. Bir konudan ya da belgeden yuvarlak kafalı çöp adam karakterli, tek anlatıcılı bir What If videosu üretir (senaryo, seslendirme, Three.js + Remotion, kalite kontrol, 4K render) ve her bölümde kanalın kurallarını, kullanılan konuları, karakterleri ve dersleri AvenoxBeyin kasasındaki Stüdyo defterine yazar. Tetik - "what if videosu", "yeni bölüm", "konu üret", "shorts yap", "shorts ölç", "anlatıcı sesi seç", "sahne kur", "ışık hazırı", "kadro sayfası", "görsel ölç", "stüdyoyu kur", "kadro", "çeşitlilik kontrolü", "kanal defteri". Kullanma - tek not kaydetmek veya kasada aramak (beyin), kurulum sorunu (beyin-doktor), What If dışı genel video (video-motoru).
 ---
 
 # What If stüdyosu
@@ -9,7 +9,11 @@ Bu skill iki şeyi birleştirir:
 
 - **Üretim hattı:** Bir "What If" konusunu ya da belgesini baştan sona bitmiş bir videoya çeviren
   adımlar. Ayrıntılar [URETIM.md](URETIM.md), kalite kuralları [KALITE.md](KALITE.md),
-  karakter, set ve ses kütüphanesi [KUTUPHANE.md](KUTUPHANE.md).
+  karakter, set ve ses kütüphanesi [KUTUPHANE.md](KUTUPHANE.md). Shorts'un ölçülmüş formülü
+  (senaryo vuruşları, anlatıcı ve Gemini TTS tarifi, kurgu, ses tasarımı, görsel dil, yayın
+  ayarları, hedef sayılar) [SHORTS-FORMULU.md](SHORTS-FORMULU.md). Görselin sayısal reçetesi
+  (2B karakter, set yoğunluğu, ışık hazırları, kamera, son işlem, görsel ölçüm)
+  [RENDER-RECETESI.md](RENDER-RECETESI.md); çalışan kodu ve örnek kareleri `sahne-kiti/`.
 - **Hafıza:** Kanalın kuralları, kullanılmış konular, karakter görünüşleri, bölüm bölüm ne
   kullanıldığı ve öğrenilen dersler, kullanıcının AvenoxBeyin kasasındaki `Studyo` defterinde
   durur. Bir konuşmada öğrenilen şey bir sonraki bölümde kendiliğinden geçerli olur.
@@ -60,11 +64,16 @@ listesini ve `Dersler.md` içindeki `[kalıcı]` satırlarla birlikte en yeni 20
 Alt ajan kullanıyorsan ilgili dersleri ve yasakları brifine koy; "deftere bak" deme.
 
 **Üretirken.** [URETIM.md](URETIM.md) adımlarını sırayla izle. **KAPI** işaretli yerlerde dur ve
-kullanıcıya göster. Kapılar dışında soru sorma; varsayılanı uygula ve bölüm notuna yaz.
+kullanıcıya göster. Kapılar dışında soru sorma; varsayılanı uygula ve bölüm notuna yaz. Shorts'ta
+senaryodan önce [SHORTS-FORMULU.md](SHORTS-FORMULU.md) dosyasının tamamını oku. Set, ışık,
+karakter ya da kamera kurmadan önce [RENDER-RECETESI.md](RENDER-RECETESI.md) dosyasını oku;
+kütüphanede karşılığı olmayan parçaya `sahne-kiti/` modüllerinden başla.
 
 **Render'dan önce.** `araclar/cesitlilik.py` ile tekrar kontrolünü çalıştır
 (`python3 araclar/cesitlilik.py --gunluk <vault>/Studyo/Kullanim-Gunlugu.md --bolum <slug>`).
 Geçmeyen bölüm render'a gitmez. [KALITE.md](KALITE.md) listesinin tamamı geçmeden teslim yok.
+Shorts'ta render'dan sonra `araclar/shorts_olcum.py` çalışır; FAIL veren Shorts teslim edilmez.
+Kalite kontrol kareleri render'dan önce `shorts_olcum.py --kareler` ile ölçülür (görsel satırlar WARN).
 
 **Geri bildirim gelince.** Düzeltmeyi yap, aynı turda deftere yaz. Bir hata türü ilk kez
 görüldüyse `Dersler.md` içine bir kalite kuralı olarak ekle; aynı hata ikinci kez çıkarsa

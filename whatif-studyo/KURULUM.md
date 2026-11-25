@@ -16,4 +16,11 @@
    başlatma tercihini `Araclar.md` içine yaz.
 5. **Çeşitlilik denetleyicisi:** `araclar/cesitlilik.py` yalnız Python standart kütüphanesi
    kullanır; kurulum gerekmez. `python3 araclar/cesitlilik.py --help`.
-6. Kurulan sürümleri ve tarihi `Araclar.md` içine yaz.
+   **Shorts araçları:** `araclar/shorts_olcum.py` ve `araclar/ses_sec.py` FFmpeg ve `numpy`
+   ister (`python3 -m pip install numpy`; kullanıcının onayıyla). `ses_sec.py` Gemini API'ye
+   istek atar ve anahtarı yalnız `GEMINI_API_KEY` ortam değişkeninden okur.
+6. **Sahne kiti:** `cd whatif-studyo/sahne-kiti && npm install` (three 0.187.0 ve başsız önizleme
+   için puppeteer-core; kullanıcının onayıyla). `node render.mjs` örnek kareleri `cikti/` altına
+   yazar; Chrome yolu bulunamazsa `CHROME_YOLU` ortam değişkeni verilir. Kit modülleri Remotion
+   projesine kopyalanabilir ya da oradan içe aktarılabilir (RENDER-RECETESI 7).
+7. Kurulan sürümleri ve tarihi `Araclar.md` içine yaz.

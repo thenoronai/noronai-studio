@@ -19,6 +19,19 @@ approval → Three.js + Remotion shots, effects and sound design → quality che
 black frames, floating objects, repetition) → 4K long-form or vertical Shorts render → everything
 learned is written back to your vault.
 
+Shorts follow a measured formula ([SHORTS-FORMULU.md](whatif-studyo/SHORTS-FORMULU.md), Turkish):
+beat structure, narrator and Gemini TTS voice design, camera-led transitions, sound design,
+character expression and motion library, captions, publishing settings and numeric targets.
+`araclar/shorts_olcum.py` checks a finished Short against those targets and `araclar/ses_sec.py`
+designs and ranks narrator voices (both need FFmpeg and numpy).
+
+The look (flat 2D characters inside lit, densely dressed 3D sets) has a numeric recipe
+([RENDER-RECETESI.md](whatif-studyo/RENDER-RECETESI.md), Turkish) and working Three.js code in
+[`whatif-studyo/sahne-kiti/`](whatif-studyo/sahne-kiti/BENIOKU.md): eight light presets, a 2D character
+builder (costumes, hats, 12 expressions, soft shading), props and procedural textures, a post chain and a
+headless renderer for preview frames. `shorts_olcum.py --kareler` measures frames for brightness,
+contrast, colorfulness, dark area, detail and warm/cool variation against the reference band.
+
 ## The notebook
 
 | File | Keeps |

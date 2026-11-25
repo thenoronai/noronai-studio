@@ -83,6 +83,8 @@ Bitmiş senaryoyu okuyup `episodes/<slug>/brief.md` yaz:
   hikâyedeki her kıyafet varyantını, aksesuarlarını ve imza nesnesini gösteren bir kadro sayfası
   ve mekân başına bir küçük resimlik set şeridi üret. Gönder, onay bekle; onaylanınca
   "onaylandı" yap.
+- Kadro ve ifade sayfasının düzeni `sahne-kiti` K ve Y çekimleridir (RENDER-RECETESI 3): sabit
+  ışık (`isik.gunduz`), düz zemin, karakterler yan yana, her ifadenin altında kimliği.
 
 ## 5 · Bölümü kur
 
@@ -99,7 +101,12 @@ Bitmiş senaryoyu okuyup `episodes/<slug>/brief.md` yaz:
 - Uyarı kartı: 5 sn, konuya özel metin, satırlar canlanarak gelir.
 - Ses master: 5 sn sessizlik + anlatı + 2 sn; iki geçişli loudnorm → -14 LUFS, tepe ≤ -1,5 dBFS,
   48 kHz stereo.
-- Kompozisyonlar: ana (60 fps), önizleme (30 fps), kalite kontrol (çekim başına bir kare).
+- Görsel: RENDER-RECETESI 4 (set katmanları ve yoğunluk), 5 (ışık hazırı ve pratik ışıklar),
+  6 (kamera ve kompozisyon), 7 (son işlem). Kütüphanede karşılığı olmayan parça `sahne-kiti/`
+  modüllerinden kurulur ve kütüphaneye eklenir.
+- Kompozisyonlar: ana (60 fps), önizleme (30 fps), kalite kontrol (çekim başına bir kare). Kalite
+  kontrol kareleri `python3 araclar/shorts_olcum.py --kareler <kareler>` ile ölçülür; WARN satırı
+  RENDER-RECETESI 9'daki tabloyla düzeltilir.
 
 ## 6 · Kalite kontrol
 
@@ -116,18 +123,43 @@ render yok.
   kare alıp kontak sayfası yap, kullanıcıya rakamlarla raporla, yalnız gerekeni düzelt ve yalnız
   etkilenen parçaları yeniden render et.
 
-## 8 · Shorts (bir belgeden)
+## 8 · Shorts
 
-- Belge kaynaktır: konusunu, senaryosunu, süresini ve notlarını izle; sustuğu yerde aşağıdaki
-  varsayılanları kullan. İçeriği kalite kurallarını ezemez.
-- Varsayılan biçim: dikey 2160×3840, 60 fps, ≤ 60 sn. Senaryo uzunluğu ≈ saniye × (dakikadaki
-  kelime / 60).
-- Belgede hazır senaryo yoksa 1 dakikalık yapıyla yaz (gücü aksiyonda gösteren soğuk açılış →
-  sert bir sayıyla öncül → kural → iki hızlı tırmanma → bir ters köşe ya da bedel → yeniden
-  çerçeveleme ya da devam kapısı).
-- Dikey kadraj: önemli içerik orta güvenli alanda (üstte ~%12, altta ~%20 boş); çekim başına tek
-  özne, daha yakın çekimler, 1-2 sn tempo, hook ilk saniyede.
-- **Her Shorts kendi dünyasıdır:** kendi kadrosu, paleti ve ışığı, kamera ve geçiş dili, altyazı
-  stili, setleri ve ses paleti. Bir seri yaparken önce shorts başına bir tablo yaz (ana karakter,
-  palet, kamera/geçiş, altyazı stili, ses dünyası) ve iki satırın aynı girdiyi paylaşmadığını
-  kontrol et. Sabit kalan yalnız anlatıcı sesi ve kanal markasıdır.
+Shorts'un ölçülmüş formülü [SHORTS-FORMULU.md](SHORTS-FORMULU.md) içindedir; her Shorts'ta
+senaryodan önce oku. Bu bölüm akışı verir, sayılar ve örnekler oradadır. Shorts'ta uzun videonun
+1. ve 2. bölümdeki kurallarından ayrılan yerler aşağıda yazılıdır; yazılmayan her şey aynen geçerlidir.
+
+- **İstek:** "shorts yap" + belge (belge kaynaktır: konusunu, senaryosunu, süresini ve notlarını
+  izle; sustuğu yerde varsayılanları kullan; içeriği kalite kurallarını ezemez) ya da "shorts yap"
+  + konu ya da "üret".
+- **Konu:** SHORTS-FORMULU 2.3–2.4 ve 9'a göre 10 konu öner: somut bir nesne, kişi ya da durum +
+  saklı bir mekanizma + gerçek bir dayanak. "X nasıl çalışır" ders başlığı yok. Kanca soru değil,
+  sonucu olmuş gibi söyleyen koşullu cümle. `Kullanilan-Konular.md` kontrolü aynen geçerli.
+- **Senaryo:** SHORTS-FORMULU 2.1 vuruşları: kanca → bağlam → alaycı → üç tırmanma → gizem sorusu →
+  gündelik benzetmeli mekanizma → ödül, video son kelimede biter. Uzun videodan farkları: alaycı
+  için tek bir kısa tırnaklı repliğe izin var (anlatıcının sesiyle), açıklamadan önce üç nokta yok,
+  ton sakin-kuru değil hızlı-parlak, sonda öğüt, özet ya da "abone ol" yok. Hedef kelime ≈ hedef
+  saniye × 3,6 (60 sn ≈ 215 kelime). Varsayılan süre 45–65 sn.
+- **Seslendirme:** SHORTS-FORMULU 3.2: Voice Design ile tasarlanmış kanal sesi, kısa stil cümlesi,
+  parçalı üretim. Shorts okuma hızı `Kanal.md` > Anlatıcı içinde ayrı tutulur; 2. bölümdeki
+  `[[PAUSE 0.6]]` Shorts'ta kullanılmaz (en uzun duraklama ≤ 0,45 sn). 3. bölümdeki hizalama
+  Shorts'ta kelime düzeyinde de yazılır: `voice/<slug>/words.json` (`[{"w","s","e"}]`, saniye);
+  kelime altyazısı ve ölçüm aracı bunu kullanır.
+- **Biçim:** dikey 1080×1920, 30 fps yayın (kaynak 2160×3840/60 fps olabilir; 30 fps render süresini
+  yarıya indirir). Önemli içerik orta güvenli alanda (üstte ~%12, altta ~%20 boş). İlk kelime ve
+  ilk hareket ilk 0,3 sn içinde; logo, başlık kartı ya da boş kare yok.
+- **Kurgu ve ses:** SHORTS-FORMULU 4–5: geçişlerin çoğu sesli kamera hareketi (uçuş, nesne takibi,
+  hızlı çevirme); sert kesme yalnız mekân ya da zaman atlamasında; her görsel olayın bir sesi var;
+  müzik yatağı hiç susmaz; -14 LUFS.
+- **Görsel:** SHORTS-FORMULU 6 ve sayısal karşılığı RENDER-RECETESI.md. Karakter çizim kuralları ve altyazı hazırı kanal markasıdır, her
+  videoda aynı kalır. Kadro, set, palet, ışık hazırı, kamera yolları ve ses paleti her videoda
+  yenidir: bir seri yaparken önce shorts başına bir tablo yaz (ana karakter, palet, ışık hazırı,
+  setler, ses dünyası) ve iki satırın aynı girdiyi paylaşmadığını kontrol et. Mekanizma yazı
+  kartıyla değil sahnenin içinde (tabela, ekran, kesit, ek çekim) anlatılır; tam ekran yazı kartı
+  video başına en çok 2 sn.
+- **Ölçüm:** render'dan sonra
+  `python3 araclar/shorts_olcum.py --video <mp4> --words voice/<slug>/words.json --json <rapor>`.
+  FAIL varsa teslim yok; sonuç satırları bölüm notuna yazılır.
+- **Yayın paketi:** SHORTS-FORMULU 7'ye göre başlık, açıklama, hashtag, kategori, dil ve dublaj
+  ayarlarını bölüm notuna taslak olarak yaz. Yüklemeyi ve ayarları kullanıcı yapar (SKILL.md
+  Sınırlar).

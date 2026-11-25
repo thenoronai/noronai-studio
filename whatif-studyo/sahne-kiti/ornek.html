@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Sahne kiti · örnek çekim</title>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js","three/addons/":"./node_modules/three/examples/jsm/"}}</script>
+<style>html,body{margin:0;background:#000} canvas{display:block}</style></head><body>
+<script type="module">
+// ?cekim=A&w=1080&h=1920&t=0  (t: saniye; itme ve toz gibi zamanlı öğeler için)
+// Teşhis bayrakları: post=0 (son işlem yok), bloom=0, dof=0
+import { cekimRender } from './ornek.js';
+const q = new URLSearchParams(location.search);
+const w = +(q.get('w') || 540), h = +(q.get('h') || 960);
+const tuval = document.createElement('canvas'); document.body.appendChild(tuval);
+try { window.__s = await cekimRender(q.get('cekim') || 'A', { genislik: w, yukseklik: h, t: +(q.get('t') || 0), tuval, bayrak: Object.fromEntries(q) }); window.__done = true; }
+catch (e) { console.error('HATA', e.message, e.stack); window.__err = String(e); window.__done = true; }
+</script></body></html>

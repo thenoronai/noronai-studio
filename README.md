@@ -20,9 +20,9 @@ eklentidir. Hafızayı AvenoxBeyin tutar, üretimi NöronAI Studio yapar.
 | **Ses** | Seçtiğin TTS sesiyle seslendirme, cümle zamanlaması |
 | **Tasarım** | Senaryodan karakter, mekân, oyunculuk ve ses brifi |
 | **Kadro** | Her bölüme özel karakterler; onayına sunulan kadro sayfası |
-| **Kurgu** | Three.js + Remotion ile çekimler, efektler, ses tasarımı |
-| **Kalite** | Donma, siyah kare, havada duran nesne ve tekrar kontrolü |
-| **Render** | 4K uzun video ya da dikey Shorts |
+| **Kurgu** | Three.js + Remotion ile çekimler, efektler, ses tasarımı; ışıklı 3B set içinde düz 2B karakter ([render reçetesi](whatif-studyo/RENDER-RECETESI.md), [sahne kiti](whatif-studyo/sahne-kiti/BENIOKU.md)) |
+| **Kalite** | Donma, siyah kare, havada duran nesne ve tekrar kontrolü; Shorts'ta hız, duraklama, ses yüksekliği, kurgu ve görsel (parlaklık, renklilik, detay) ölçümü |
+| **Render** | 4K uzun video ya da dikey Shorts ([Shorts formülü](whatif-studyo/SHORTS-FORMULU.md)) |
 | **Hafıza** | Konu, karakter, kütüphane kullanımı ve dersler kasana yazılır |
 
 ## Neden hafıza?
@@ -65,7 +65,11 @@ Claude Code ya da Codex gibi bir AI istemcisi, Node.js 22+, Python 3.11+, FFmpeg
 | --- | --- |
 | "Yeni bir What If konusu üret" | Daha önce yapılmamış 10 konu |
 | "3 numara, 10 dakika" | Senaryo, ardından üretim hattı |
-| "Bu belgeden shorts yap" | Dikey, 60 saniyeye kadar bir Shorts |
+| "Bu belgeden shorts yap" | Dikey, 45–65 saniyelik bir Shorts |
+| "Shorts'u ölç" | Bitmiş Shorts'un hız, duraklama, ses ve kurgu ölçümü (`araclar/shorts_olcum.py`) |
+| "Sahne kur" / "kadro sayfası" | Sahne kitiyle set, ışık hazırı, karakter ve kadro/ifade sayfası; `node sahne-kiti/render.mjs` örnek kareleri |
+| "Görseli ölç" | Render önizleme karelerinin parlaklık, kontrast, renklilik, detay ölçümü (`shorts_olcum.py --kareler`) |
+| "Anlatıcı sesi seç" | Gemini Voice Design ile kanal sesi ve aday seslerin ölçülü karşılaştırması (`araclar/ses_sec.py`) |
 | "Çeşitlilik kontrolünü çalıştır" | Tekrar kurallarının denetimi |
 | "Kanal defterini göster" | Stüdyonun kanalın hakkında bildikleri |
 
