@@ -8,7 +8,7 @@ Kullanım:
 Ölçtükleri (yalnız ffmpeg/ffprobe ve numpy gerekir):
   - süre, çözünürlük, kare hızı
   - ses: entegre yükseklik (LUFS), gerçek tepe (dBTP), LRA
-  - kurgu: sert kesmeler (zaman, sayı, ilk kesme), hızlı kamera hareketleri, açılıştaki ilk
+  - kurgu: sert kesmeler, hızlı kamera hareketleri, çekim sayısı ve en uzun çekim, açılıştaki ilk
     görsel değişim, hareketsiz bekleme (donma) aralıkları
   - anlatım (words.json varsa): kelime/dk (toplam ve konuşurken), ilk kelimenin başlangıcı,
     son kelimeden sonra kalan süre, duraklama medyanı, 250 ms'yi geçen duraklamalar, en uzun duraklama
@@ -41,9 +41,10 @@ HEDEF = {
     "en_uzun_duraklama_ms_max": 450,  # referansta 400 ms'yi geçen duraklama video başına 0–1
     "ilk_gorsel_degisim_sn_max": 1.5,  # ilk 1,5 sn içinde kamera/karakter hareketi ya da kesme
     "donma_sn_max": 0.5,            # her bekleme yavaşça iten bir kamera taşır
-    "sert_kesme_max": 10,           # referans medyanı 1 (P90 6, en çok 11)
-    "sert_kesme_aralik_sn_min": 3.0,  # son 10 sn dışında; finaldeki hızlanan kesmeler serbest
-    "hizli_kamera_hareketi_min": 10,  # referans medyanı 19 (P10–P90 10–26); her biri bir sesle başlar
+    # Kurgu (TARZ-REHBERI.md Kural seti 3, 2026-11-25): her 1–1,5 sn'de bir kesme ya da hızlı geçiş.
+    # Çekim = sert kesme ya da hızlı kamera hareketi (whip) ile ayrılan parça.
+    "en_uzun_cekim_sn_max": 3.0,    # hiçbir çekim 3 sn'yi geçmez (zaman atlaması bekleme sahnesi hariç: WARN)
+    "cekim_orani_min": 0.6,         # çekim sayısı ≥ sürenin saniyesi × 0,6 (60 sn → ≥ 36 çekim)
 }
 HAREKET_ESIGI = 12.0  # 54x96 gri karede ortalama kare farkı; referans ölçümüyle aynı eşik
 
@@ -142,7 +143,10 @@ def video_metrics(video):
             i = j + 1
         else:
             i += 1
-    return {"sert_kesme": len(cuts), "kesmeler": cuts, "ilk_kesme_sn": cuts[0] if cuts else None,
+    sinir = sorted(set([0.0] + cuts + [m[0] for m in moves] + [round(len(F) / fps, 2)]))
+    cekimler = np.diff(sinir) if len(sinir) > 1 else np.array([len(F) / fps])
+    return {"sert_kesme": len(cuts), "kesmeler": cuts,
+            "cekim_sayisi": int(len(cekimler)), "en_uzun_cekim_sn": round(float(cekimler.max()), 2), "ilk_kesme_sn": cuts[0] if cuts else None,
             "en_kisa_kesme_araligi_sn": round(float(gaps[1:].min()), 2) if len(gaps) > 1 else None,
             "ilk_gorsel_degisim_sn": first_change, "donmalar": holds,
             "hizli_kamera_hareketi": len(moves), "hareketler": moves,
@@ -254,16 +258,13 @@ def judge(r):
     mx("tepe", r.get("tepe_dbtp"), HEDEF["tepe_dbtp_max"], "Gerçek tepe (dBTP)")
     mx("ilk_degisim", r.get("ilk_gorsel_degisim_sn"), HEDEF["ilk_gorsel_degisim_sn_max"], "İlk görsel değişim (sn)")
     mx("donma", r.get("en_uzun_donma_sn"), HEDEF["donma_sn_max"], "En uzun hareketsiz bekleme (sn)", warn=True)
-    if r.get("hizli_kamera_hareketi") is not None:
-        ok = r["hizli_kamera_hareketi"] >= HEDEF["hizli_kamera_hareketi_min"]
-        out.append(("PASS" if ok else "WARN", "Hızlı kamera hareketi (adet)",
-                    f"{r['hizli_kamera_hareketi']} (en az {HEDEF['hizli_kamera_hareketi_min']}; geçişlerin çoğu kamera hareketi)"))
-    if r.get("sert_kesme") is not None:
-        mx("kesme", r["sert_kesme"], HEDEF["sert_kesme_max"], "Sert kesme sayısı", warn=True)
-    if r.get("en_kisa_kesme_araligi_sn") is not None:
-        ok = r["en_kisa_kesme_araligi_sn"] >= HEDEF["sert_kesme_aralik_sn_min"]
-        out.append(("PASS" if ok else "WARN", "Sert kesmeler arası en kısa aralık (sn)",
-                    f"{r['en_kisa_kesme_araligi_sn']} (en az {HEDEF['sert_kesme_aralik_sn_min']}, son 10 sn hariç; sık kesme yerine kamera geçişi)"))
+    if r.get("en_uzun_cekim_sn") is not None:
+        mx("cekim", r["en_uzun_cekim_sn"], HEDEF["en_uzun_cekim_sn_max"], "En uzun çekim (sn)", warn=True)
+    if r.get("cekim_sayisi") is not None:
+        gerek = int(np.ceil(r["sure_sn"] * HEDEF["cekim_orani_min"]))
+        ok = r["cekim_sayisi"] >= gerek
+        out.append(("PASS" if ok else "WARN", "Çekim sayısı (kesme + hızlı geçiş)",
+                    f"{r['cekim_sayisi']} (en az {gerek}; 1–1,5 sn'de bir kesme)"))
     if "kelime_dk" in r:
         rng("wpm", r["kelime_dk"], *HEDEF["kelime_dk"], "Kelime/dk (toplam)")
         rng("wpmv", r["kelime_dk_konusurken"], *HEDEF["kelime_dk_konusurken"], "Kelime/dk (konuşurken)")
@@ -332,7 +333,7 @@ def main():
     res = judge(r)
     print(f"# Shorts ölçümü: {a.video}")
     print(f"{r['genislik']}x{r['yukseklik']} · {r['fps']} fps · {r['sure_sn']} sn · sert kesme {r.get('sert_kesme')} · "
-          f"ilk kesme {r.get('ilk_kesme_sn')} sn · hızlı kamera hareketi {r.get('hizli_kamera_hareketi')}")
+          f"hızlı kamera hareketi {r.get('hizli_kamera_hareketi')} · çekim {r.get('cekim_sayisi')} · en uzun çekim {r.get('en_uzun_cekim_sn')} sn")
     for st, label, val in res:
         print(f"[{st}] {label}: {val}")
     if r.get("donmalar"):

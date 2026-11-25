@@ -21,6 +21,7 @@ eklentidir. Hafızayı AvenoxBeyin tutar, üretimi NöronAI Studio yapar.
 | **Tasarım** | Senaryodan karakter, mekân, oyunculuk ve ses brifi |
 | **Kadro** | Her bölüme özel karakterler; onayına sunulan kadro sayfası |
 | **Kurgu** | Three.js + Remotion ile çekimler, efektler, ses tasarımı; ışıklı 3B set içinde düz 2B karakter ([render reçetesi](whatif-studyo/RENDER-RECETESI.md), [sahne kiti](whatif-studyo/sahne-kiti/BENIOKU.md)) |
+| **Tarz** | Gerçek dünya konusu, kalıcı ana karakter, ters köşe ve döngü iskeleti, hızlı kurgu, gömülü kelime altyazısı ([tarz rehberi](whatif-studyo/TARZ-REHBERI.md)) |
 | **Kalite** | Donma, siyah kare, havada duran nesne ve tekrar kontrolü; Shorts'ta hız, duraklama, ses yüksekliği, kurgu ve görsel (parlaklık, renklilik, detay) ölçümü |
 | **Render** | 4K uzun video ya da dikey Shorts ([Shorts formülü](whatif-studyo/SHORTS-FORMULU.md)) |
 | **Hafıza** | Konu, karakter, kütüphane kullanımı ve dersler kasana yazılır |

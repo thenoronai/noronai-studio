@@ -1,5 +1,23 @@
 # Değişiklikler
 
+## 0.4.0 · 2026-11-25
+
+- **Tarz rehberi:** `whatif-studyo/TARZ-REHBERI.md`. Ricks Clips'in en çok izlenen Reel'inin kare kare
+  incelenmesinden ve hesabın 28 Reel'inin konu analizinden çıkan kurallar: gerçek dünya konusu ve
+  kaynak zorunluluğu (Kural seti 0), olayın ortasından kanca, kalıcı ana karakter ve üçüncü kişi
+  anlatıcı, karar → hayal → sahte zafer → aynı kadrajda ters köşe → gerçek bilgi → döngü iskeleti,
+  1–1,5 sn'de bir kesme ve fade yasağı, gömülü kelime altyazısı ölçüleri (2A), başlık/açıklama/etiket
+  kuralları, render öncesi 12 maddelik kontrol listesi; uzun videoya ölçekleme (7. bölüm). Her video
+  için geçerli; diğer dosyalarla çeliştiğinde öncelik bu dosyada.
+- **Altyazı:** `whatif-studyo/altyazi/CaptionTrack.tsx` (Montserrat Black, 4K için `olcek`) ve
+  `araclar/altyazi.py` (words.json → en çok 2 kelime / 12 karakterlik gruplar, sayı-birim birlikte,
+  sessizlikte kapanma, `captions.json` + `.srt`). Testleri `tests/test_altyazi.py` (6).
+- **Ölçüm:** `shorts_olcum.py` sert kesme üst sınırı ve kesme aralığı yerine çekim sayısı (≥ süre ×
+  0,6) ve en uzun çekim (≤ 3 sn) ölçer (WARN).
+- **SKILL, URETIM, KALITE, SHORTS-FORMULU ve şablonlar** rehbere bağlandı: KALITE kural 2 (fade yok),
+  9 (≤ 0,3 sn duraklama), 11 (açılış ve döngü kapanışı, her video), yeni 13–15 (altyazı, konu ve kaynak,
+  kontrol listesi); `Kanal.md` ana karakter alanı; `BOLUM-NOTU.md` kaynaklar ve kontrol listesi.
+
 ## 0.3.0 · 2026-11-25
 
 - **Render reçetesi:** `whatif-studyo/RENDER-RECETESI.md`. Referans görünümün (ışıklı 3B set içinde düz

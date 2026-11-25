@@ -19,6 +19,11 @@ approval → Three.js + Remotion shots, effects and sound design → quality che
 black frames, floating objects, repetition) → 4K long-form or vertical Shorts render → everything
 learned is written back to your vault.
 
+Every video follows a style guide ([TARZ-REHBERI.md](whatif-studyo/TARZ-REHBERI.md), Turkish): real-world
+topics with sources, one recurring lead told in the third person, a decision → dream → false win →
+same-frame twist → real fact → loop spine, a cut every 1–1.5 s, and burned-in word captions
+(`whatif-studyo/altyazi/CaptionTrack.tsx`, `araclar/altyazi.py`).
+
 Shorts follow a measured formula ([SHORTS-FORMULU.md](whatif-studyo/SHORTS-FORMULU.md), Turkish):
 beat structure, narrator and Gemini TTS voice design, camera-led transitions, sound design,
 character expression and motion library, captions, publishing settings and numeric targets.

@@ -3,6 +3,12 @@
 Bu dosya, 7 Ekim–22 Kasım 2026 arasında 33 Short'u 305,8 milyon izlenmeye taşıyan formatın (Ricks Clips)
 ölçülmüş tarifidir. Her Shorts'ta senaryodan önce bu dosyayı oku; URETIM.md bölüm 8 buraya bağlanır.
 
+**Öncelik:** [TARZ-REHBERI.md](TARZ-REHBERI.md) bu dosyadan sonra yazıldı ve çeliştikleri yerde
+geçerlidir: konu (gerçek dünya vakası; "What if you…" yok), anlatıcı (kalıcı ana karakteri anlatan
+üçüncü kişi), kanca (olayın ortası, soru yok), hikâye iskeleti (karar → hayal → sahte zafer → ters
+köşe → gerçek bilgi → döngü), kesme sıklığı (1–1,5 sn'de bir; fade yok), altyazı ölçüleri (2A),
+etiketler (4–5). Bu dosyanın anlatıcı sesi, ses tasarımı, görsel dil ve ölçüm değerleri geçerli kalır.
+
 **Kural:** Mekanizmayı al, içeriği alma. O kanalın senaryolarını, karakterlerini, setlerini, cümlelerini ve
 çekimlerini kopyalama; buradaki örnek cümlelerin hepsi bu stüdyo için yazılmış orijinal cümlelerdir.
 Kopya hem telif hem de YouTube'un "tekrarlayan / şablon içerik" kuralı yüzünden kanalı para kazanamaz hale getirir.
@@ -321,8 +327,10 @@ medyanıdır (Kasım 2026).
 | Perde aralığı | 11,1 yt (9,2–12,2) | 11,4 yt | ≥ 9 yt | — |
 | İlk görsel değişim | ilk karelerde | siyah kare ya da yazı kartıyla açılış | ≤ 1,5 sn | FAIL |
 | En uzun hareketsiz bekleme | yok denecek kadar az | uzun durağan kareler | ≤ 0,5 sn | WARN |
-| Hızlı kamera hareketi | 19 (10–26) | 0–9 | ≥ 10 | WARN |
-| Sert kesme | 1 (0–6), en çok 11 | 5 (1–21) | ≤ 10, aralık ≥ 3 sn (son 10 sn hariç) | WARN |
+| Hızlı kamera hareketi | 19 (10–26) | 0–9 | — (çekim sayısına girer) | — |
+| Sert kesme | 1 (0–6), en çok 11 | 5 (1–21) | — (çekim sayısına girer) | — |
+| Çekim sayısı (kesme + hızlı geçiş) | ~36–40 / 58 sn (TARZ-REHBERI örneği) | — | ≥ süre × 0,6 | WARN |
+| En uzun çekim | ≤ 3 sn (TARZ-REHBERI) | — | ≤ 3 sn | WARN |
 | Sesle başlayan kamera hareketi | %94 (81–100) | — | ≥ %90 (kurguda) | — |
 | Müzik yatağı (konuşma altında) | 13,3 dB (11,7–14,6) | ~18 dB (tahmini, dublaj izi yok) | 10–16 dB | — |
 | Arka plan ses olayı/dk | 175 (165–189) | ~137 (ayrıştırılamadı) | ≥ 150 | — |

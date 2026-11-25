@@ -39,6 +39,7 @@ satır sonunda "(gözlem)" ile işaretlenir.
 
 ## Kanal markası (her videoda sabit kalan)
 
+- Ana karakter (adı, görünüşü, kişiliği; adın ekranda göründüğü yer):
 - Karakter çizim kuralları (kafa, çizgi, yüz):
 - Altyazı hazırı (yazı tipi, boyut, kontur, konum):
 - Anlatıcı sesi:
@@ -50,7 +51,7 @@ Kullanıcının onayladığı yayın ayarları. Yüklemeyi ve ayarları kullanı
 
 - Başlık kalıpları:
 - Açıklama şablonu:
-- Hashtag'ler:
+- Hashtag'ler (4–5: kanal etiketi, biçim etiketi, 1–2 konu etiketi):
 - Kategori:
 - Ses dili, altyazı ve otomatik dublaj:
 - Yayın sıklığı ve saati:

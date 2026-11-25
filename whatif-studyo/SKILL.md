@@ -1,12 +1,14 @@
 ---
 name: whatif-studyo
-description: Hafızalı "What If" video stüdyosu. Bir konudan ya da belgeden yuvarlak kafalı çöp adam karakterli, tek anlatıcılı bir What If videosu üretir (senaryo, seslendirme, Three.js + Remotion, kalite kontrol, 4K render) ve her bölümde kanalın kurallarını, kullanılan konuları, karakterleri ve dersleri AvenoxBeyin kasasındaki Stüdyo defterine yazar. Tetik - "what if videosu", "yeni bölüm", "konu üret", "shorts yap", "shorts ölç", "anlatıcı sesi seç", "sahne kur", "ışık hazırı", "kadro sayfası", "görsel ölç", "stüdyoyu kur", "kadro", "çeşitlilik kontrolü", "kanal defteri". Kullanma - tek not kaydetmek veya kasada aramak (beyin), kurulum sorunu (beyin-doktor), What If dışı genel video (video-motoru).
+description: Hafızalı "What If" video stüdyosu. Bir konudan ya da belgeden yuvarlak kafalı çöp adam karakterli, tek anlatıcılı bir What If videosu üretir (senaryo, seslendirme, Three.js + Remotion, kalite kontrol, 4K render) ve her bölümde kanalın kurallarını, kullanılan konuları, karakterleri ve dersleri AvenoxBeyin kasasındaki Stüdyo defterine yazar. Tetik - "what if videosu", "yeni bölüm", "konu üret", "shorts yap", "shorts ölç", "anlatıcı sesi seç", "sahne kur", "ışık hazırı", "kadro sayfası", "görsel ölç", "tarz rehberi", "altyazı üret", "stüdyoyu kur", "kadro", "çeşitlilik kontrolü", "kanal defteri". Kullanma - tek not kaydetmek veya kasada aramak (beyin), kurulum sorunu (beyin-doktor), What If dışı genel video (video-motoru).
 ---
 
 # What If stüdyosu
 
 Bu skill iki şeyi birleştirir:
 
+- **Tarz rehberi:** Her videonun (uzun ve Shorts) konu, hikâye, kurgu ve altyazı kuralları
+  [TARZ-REHBERI.md](TARZ-REHBERI.md). Diğer dosyalarla çeliştiği yerde bu dosya geçerlidir.
 - **Üretim hattı:** Bir "What If" konusunu ya da belgesini baştan sona bitmiş bir videoya çeviren
   adımlar. Ayrıntılar [URETIM.md](URETIM.md), kalite kuralları [KALITE.md](KALITE.md),
   karakter, set ve ses kütüphanesi [KUTUPHANE.md](KUTUPHANE.md). Shorts'un ölçülmüş formülü
@@ -18,8 +20,9 @@ Bu skill iki şeyi birleştirir:
   kullanıldığı ve öğrenilen dersler, kullanıcının AvenoxBeyin kasasındaki `Studyo` defterinde
   durur. Bir konuşmada öğrenilen şey bir sonraki bölümde kendiliğinden geçerli olur.
 
-Stüdyo hazır bir kanal kimliği getirmez. İlk bölümde yalnız varsayılan What If biçimini bilir
-(tek anlatıcı, "sen" diye anlatım, çöp adam karakterler). Onuncu bölümde kanalın tonunu, sevdiği
+Stüdyo hazır bir kanal kimliği getirmez. İlk bölümde yalnız varsayılan biçimi bilir (TARZ-REHBERI:
+gerçek dünya konusu, kalıcı bir ana karakterin başına gelen hikâye, üçüncü kişi anlatıcı, çöp adam
+karakterler, gömülü kelime altyazısı). Onuncu bölümde kanalın tonunu, sevdiği
 konu tiplerini, kullanılmış her konuyu ve hiçbir karakterin iki kez aynı giyinmediğini bilir.
 
 ## Defter
@@ -63,7 +66,8 @@ listesini ve `Dersler.md` içindeki `[kalıcı]` satırlarla birlikte en yeni 20
 önerirken ya da senaryo yazarken `Kullanilan-Konular.md` içindeki hiçbir öncülü tekrar etme.
 Alt ajan kullanıyorsan ilgili dersleri ve yasakları brifine koy; "deftere bak" deme.
 
-**Üretirken.** [URETIM.md](URETIM.md) adımlarını sırayla izle. **KAPI** işaretli yerlerde dur ve
+**Üretirken.** Senaryodan önce [TARZ-REHBERI.md](TARZ-REHBERI.md) dosyasının tamamını oku; Kural
+seti 0 (konu seçimi) her şeyden önce uygulanır. [URETIM.md](URETIM.md) adımlarını sırayla izle. **KAPI** işaretli yerlerde dur ve
 kullanıcıya göster. Kapılar dışında soru sorma; varsayılanı uygula ve bölüm notuna yaz. Shorts'ta
 senaryodan önce [SHORTS-FORMULU.md](SHORTS-FORMULU.md) dosyasının tamamını oku. Set, ışık,
 karakter ya da kamera kurmadan önce [RENDER-RECETESI.md](RENDER-RECETESI.md) dosyasını oku;
@@ -74,6 +78,8 @@ kütüphanede karşılığı olmayan parçaya `sahne-kiti/` modüllerinden başl
 Geçmeyen bölüm render'a gitmez. [KALITE.md](KALITE.md) listesinin tamamı geçmeden teslim yok.
 Shorts'ta render'dan sonra `araclar/shorts_olcum.py` çalışır; FAIL veren Shorts teslim edilmez.
 Kalite kontrol kareleri render'dan önce `shorts_olcum.py --kareler` ile ölçülür (görsel satırlar WARN).
+TARZ-REHBERI Kural seti 5'teki kontrol listesi tek tek işaretlenip bölüm notuna yazılır; biri
+"hayır" ise render yok. Altyazı grupları ve .srt `araclar/altyazi.py` ile üretilir.
 
 **Geri bildirim gelince.** Düzeltmeyi yap, aynı turda deftere yaz. Bir hata türü ilk kez
 görüldüyse `Dersler.md` içine bir kalite kuralı olarak ekle; aynı hata ikinci kez çıkarsa
@@ -99,6 +105,8 @@ kendileri yazmaz; defteri tek el yazar.
 - Yayınlama, yükleme ve mesaj gönderme kullanıcının açık onayını ister.
 - Ücretli servis (bulut render, ücretli ses ya da görsel üretimi) kullanmadan önce sor.
 - Seslendirme anahtarını kullanıcı kendi makinesinde ortam değişkenine koyar; sohbete yazdırma.
+- Gerçek kişi, marka ya da kurum adı kullanma; siyaset, savaş taktiği ve silah konularına girme;
+  suç ve kumar hikâyeleri yöntem öğretmez, bedelle biter (TARZ-REHBERI Kural seti 0 ve 6).
 - Gerçek kişilerin yüzünü ya da başkasının telifli karakterini çizme. Karakterler bu stüdyonun
   kütüphanesinden ve senaryodan doğar.
 - Başka kanallardan stil öğrenirken mekanizmayı al, karakteri ve içeriği kopyalama.

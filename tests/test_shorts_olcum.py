@@ -44,7 +44,7 @@ class KelimeTest(unittest.TestCase):
 
     def test_degerlendirme(self):
         r = {"sure_sn": 60.0, "lufs": -14.0, "tepe_dbtp": -1.5, "ilk_gorsel_degisim_sn": 0.2,
-             "en_uzun_donma_sn": 0.2, "en_kisa_kesme_araligi_sn": 5.0, "kelime_dk": 225,
+             "en_uzun_donma_sn": 0.2, "cekim_sayisi": 40, "en_uzun_cekim_sn": 2.5, "kelime_dk": 225,
              "kelime_dk_konusurken": 285, "ilk_kelime_sn": 0.1, "son_kelimeden_sonra_sn": 0.3,
              "en_uzun_duraklama_ms": 300}
         self.assertTrue(all(s == "PASS" for s, _, _ in shorts_olcum.judge(r)))
@@ -53,11 +53,12 @@ class KelimeTest(unittest.TestCase):
 
     def test_uyarilar(self):
         r = {"sure_sn": 60.0, "lufs": -14.0, "tepe_dbtp": -1.5, "ilk_gorsel_degisim_sn": 0.2,
-             "en_uzun_donma_sn": 0.2, "sert_kesme": 14, "en_kisa_kesme_araligi_sn": 1.0,
+             "en_uzun_donma_sn": 0.2, "sert_kesme": 14, "cekim_sayisi": 20, "en_uzun_cekim_sn": 6.0,
              "kelime_dk": 225, "kelime_dk_konusurken": 285, "ilk_kelime_sn": 0.1,
              "son_kelimeden_sonra_sn": 0.3, "en_uzun_duraklama_ms": 300, "duraklama_medyan_ms": 280}
         res = {label: st for st, label, _ in shorts_olcum.judge(r)}
-        self.assertEqual(res["Sert kesme sayısı"], "WARN")
+        self.assertEqual(res["Çekim sayısı (kesme + hızlı geçiş)"], "WARN")  # 60 sn için en az 36
+        self.assertEqual(res["En uzun çekim (sn)"], "WARN")
         self.assertEqual(res["Duraklama medyanı (ms)"], "WARN")
         self.assertNotIn("FAIL", res.values())  # uyarılar teslimi durdurmaz
 
@@ -78,6 +79,8 @@ class VideoTest(unittest.TestCase):
         self.assertEqual(m["sert_kesme"], 1)
         self.assertAlmostEqual(m["kesmeler"][0], 4.0, delta=0.1)
         self.assertGreaterEqual(m["en_uzun_donma_sn"], 2.5)  # mavi ekran donma sayılmalı
+        self.assertEqual(m["cekim_sayisi"], 2)
+        self.assertAlmostEqual(m["en_uzun_cekim_sn"], 4.0, delta=0.1)
 
     def test_kamera_hareketi(self):
         # 1. ile 2. saniye arasında hızlı yatay kaydırma: tek hareket, kesme yok
